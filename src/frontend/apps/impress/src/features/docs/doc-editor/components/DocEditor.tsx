@@ -22,7 +22,7 @@ import { useCollaboration } from '../hook/useCollaboration';
 
 import { BlockNoteEditor, BlockNoteReader } from './BlockNoteEditor';
 
-const DOCS_EDITOR_CLASS = '--docs--doc-editor';
+export const DOCS_EDITOR_CLASS = '--docs--doc-editor';
 
 interface DocEditorContainerProps {
   docHeader: React.ReactNode;

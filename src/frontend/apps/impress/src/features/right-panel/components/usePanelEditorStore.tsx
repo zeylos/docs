@@ -8,7 +8,7 @@ export interface UsePanelEditorStore {
 }
 
 export const usePanelEditorStore = create<UsePanelEditorStore>((set) => ({
-  isPanelOpen: false,
+  isPanelOpen: true,
   isPanelTableContentOpen: true,
   setIsPanelTableContentOpen: (isPanelTableContentOpen) => {
     set(() => ({ isPanelTableContentOpen }));

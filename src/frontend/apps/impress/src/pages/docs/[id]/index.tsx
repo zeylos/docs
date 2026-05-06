@@ -61,7 +61,7 @@ export function DocLayout() {
           };
         }}
       >
-        <MainLayout enableResizablePanel={true}>
+        <MainLayout enableResizablePanel={true} enableRightPanel={true}>
           <FloatingBar />
           <DocPage id={id} />
         </MainLayout>
