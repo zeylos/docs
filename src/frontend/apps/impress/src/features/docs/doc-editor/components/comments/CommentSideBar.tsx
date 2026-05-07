@@ -281,88 +281,10 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
         formattingToolbar={false}
         slashMenu={false}
         theme="light"
-        comments={showComments}
+        comments={false}
         aria-label={t('Document editor')}
       >
-        {aiBlockNoteAllowed && AIMenuController && AIMenu && (
-          <AIMenuController aiMenu={AIMenu} />
-        )}
-        <BlockNoteSuggestionMenu aiAllowed={aiBlockNoteAllowed} />
-        <BlockNoteToolbar aiAllowed={aiBlockNoteAllowed} />
         <ThreadsSidebar filter="all" sort="recent-activity" />
-      </BlockNoteView>
-    </Box>
-  );
-};
-
-interface BlockNoteReaderProps {
-  docId: Doc['id'];
-  initialContent: Y.XmlFragment;
-  isMainEditor?: boolean;
-}
-
-export const BlockNoteReader = ({
-  docId,
-  initialContent,
-  isMainEditor = true,
-}: BlockNoteReaderProps) => {
-  const { user } = useAuth();
-  const { setEditor } = useEditorStore();
-  const { threadStore } = useComments(docId, false, user);
-  const editor = useCreateBlockNote(
-    {
-      collaboration: {
-        fragment: initialContent,
-        user: {
-          name: '',
-          color: '',
-        },
-        provider: undefined,
-      },
-      schema: blockNoteSchema,
-      extensions: [
-        CommentsExtension({
-          threadStore,
-          resolveUsers: async () => {
-            return Promise.resolve([]);
-          },
-        }),
-      ],
-    },
-    [initialContent, threadStore],
-  );
-
-  useEffect(() => {
-    if (!isMainEditor) {
-      return;
-    }
-
-    setEditor(editor);
-
-    return () => {
-      if (!isMainEditor) {
-        return;
-      }
-      setEditor(undefined);
-    };
-  }, [setEditor, editor, isMainEditor]);
-
-  useHeadings(editor);
-
-  return (
-    <Box>
-      <DocsEditorStyle />
-      <DocsCommentsStyle canSeeComment={false} />
-      <BlockNoteView
-        className="--docs--main-editor"
-        editor={editor}
-        editable={false}
-        theme="light"
-        formattingToolbar={false}
-        slashMenu={false}
-        comments={false}
-      >
-        <BlockNoteToolbar aiAllowed={false} />
       </BlockNoteView>
     </Box>
   );
