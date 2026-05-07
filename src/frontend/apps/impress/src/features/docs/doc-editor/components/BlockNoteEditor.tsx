@@ -11,7 +11,7 @@ import '@blocknote/core/fonts/inter.css';
 import * as localesBN from '@blocknote/core/locales';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
-import { ThreadsSidebar, useCreateBlockNote } from '@blocknote/react';
+import { useCreateBlockNote } from '@blocknote/react';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -289,7 +289,6 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
         )}
         <BlockNoteSuggestionMenu aiAllowed={aiBlockNoteAllowed} />
         <BlockNoteToolbar aiAllowed={aiBlockNoteAllowed} />
-        <ThreadsSidebar filter="all" sort="recent-activity" />
       </BlockNoteView>
     </Box>
   );
