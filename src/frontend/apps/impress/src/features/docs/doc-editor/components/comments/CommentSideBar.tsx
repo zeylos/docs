@@ -4,7 +4,7 @@ import { ThreadsSidebar, useCreateBlockNote } from '@blocknote/react';
 import { useTranslation } from 'react-i18next';
 import { css } from 'styled-components';
 
-import { Box } from '@/components/Box';
+import { Box, ButtonCloseModal, Text } from '@/components/';
 import { Doc } from '@/docs/doc-management';
 import { useAuth } from '@/features/auth';
 
@@ -12,9 +12,10 @@ import { useComments } from './useComments';
 
 interface CommentSideBarProps {
   doc: Doc;
+  onClose: () => void;
 }
 
-export const CommentSideBar = ({ doc }: CommentSideBarProps) => {
+export const CommentSideBar = ({ doc, onClose }: CommentSideBarProps) => {
   const { user } = useAuth();
   const canSeeComment = doc.abilities.comment;
   const { t } = useTranslation();
@@ -35,21 +36,18 @@ export const CommentSideBar = ({ doc }: CommentSideBarProps) => {
   return (
     <Box>
       <Box
-        $padding="base"
+        $padding={{ vertical: 'base', horizontal: 'sm' }}
         $css={css`
-          border-bottom: 1px solid;
+          border-bottom: 1px solid
+            var(--c--contextuals--border--surface--primary);
         `}
       >
-        <Box $direction="row" $align="center" $gap="0.5rem">
-          <Box
-            $width="0.75rem"
-            $height="0.75rem"
-            $backgroundColor={`var(--${doc.color}-500)`}
-            $borderRadius="50%"
+        <Box $direction="row" $align="center" $justify="space-between">
+          <Text $weight="bold">{t('Comments')}</Text>
+          <ButtonCloseModal
+            aria-label={t('Close the share modal')}
+            onClick={onClose}
           />
-          <Box $fontSize="1.125rem" $fontWeight="500">
-            {t('Comments')}
-          </Box>
         </Box>
       </Box>
 
