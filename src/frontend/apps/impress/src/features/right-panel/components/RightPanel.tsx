@@ -22,21 +22,22 @@ export const RightPanel = () => {
       aria-label={t('Right panel')}
       aria-hidden={!isPanelOpen}
       $width="300px"
-      $height="100vh"
+      $position="sticky"
       $hasTransition="slow"
       $background="var(--c--contextuals--background--surface--secondary)"
       $css={css`
         border-left: 1px solid var(--c--contextuals--border--surface--primary);
         transform: translateX(0%);
-        flex: 1;
         margin-left: 1rem;
+        top: 0;
+        align-self: flex-start;
+        opacity: 1;
         ${!isPanelOpen &&
         css`
           transform: translateX(200%);
           opacity: 0;
-          flex: 0;
           margin-left: 0rem;
-          max-width: 0rem;
+          width: 0;
         `}
       `}
     >

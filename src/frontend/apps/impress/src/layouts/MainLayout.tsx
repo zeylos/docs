@@ -6,7 +6,6 @@ import { Box } from '@/components';
 import { Header } from '@/features/header';
 import { HEADER_HEIGHT } from '@/features/header/conf';
 import { LeftPanel, ResizableLeftPanel } from '@/features/left-panel';
-import { RightPanel } from '@/features/right-panel/components/RightPanel';
 import { DocEditorSkeleton, Skeleton } from '@/features/skeletons';
 import { useResponsiveStore } from '@/stores';
 
@@ -15,14 +14,12 @@ import { MAIN_LAYOUT_ID } from './conf';
 type MainLayoutProps = {
   backgroundColor?: 'white' | 'grey';
   enableResizablePanel?: boolean;
-  enableRightPanel?: boolean;
 };
 
 export function MainLayout({
   children,
   backgroundColor = 'white',
   enableResizablePanel = false,
-  enableRightPanel = false,
 }: PropsWithChildren<MainLayoutProps>) {
   return (
     <Box className="--docs--main-layout">
@@ -36,7 +33,6 @@ export function MainLayout({
         <MainLayoutContent
           backgroundColor={backgroundColor}
           enableResizablePanel={enableResizablePanel}
-          enableRightPanel={enableRightPanel}
         >
           {children}
         </MainLayoutContent>
@@ -48,14 +44,12 @@ export function MainLayout({
 export interface MainLayoutContentProps {
   backgroundColor: 'white' | 'grey';
   enableResizablePanel: boolean;
-  enableRightPanel: boolean;
 }
 
 export function MainLayoutContent({
   children,
   backgroundColor,
   enableResizablePanel,
-  enableRightPanel,
 }: PropsWithChildren<MainLayoutContentProps>) {
   const { isDesktop } = useResponsiveStore();
 
@@ -67,7 +61,6 @@ export function MainLayoutContent({
             {children}
           </MainContent>
         </ResizableLeftPanel>
-        {enableRightPanel && <RightPanel />}
       </>
     );
   }
@@ -77,7 +70,6 @@ export function MainLayoutContent({
       <>
         <LeftPanel />
         <MainContent backgroundColor={backgroundColor}>{children}</MainContent>
-        {enableRightPanel && <RightPanel />}
       </>
     );
   }
@@ -94,7 +86,6 @@ export function MainLayoutContent({
         <LeftPanel />
       </Box>
       <MainContent backgroundColor={backgroundColor}>{children}</MainContent>
-      {enableRightPanel && <RightPanel />}
     </>
   );
 }
