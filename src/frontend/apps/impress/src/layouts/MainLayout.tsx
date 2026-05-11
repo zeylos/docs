@@ -114,9 +114,7 @@ const MainContent = ({
       $width="100%"
       $height={`calc(100dvh - ${HEADER_HEIGHT}px)`}
       $position="relative"
-      $padding={{
-        all: isDesktop ? 'base' : '0',
-      }}
+      $padding={isDesktop ? 'base' : '0'}
       $background={
         currentBackgroundColor === 'white'
           ? 'var(--c--contextuals--background--surface--primary)'

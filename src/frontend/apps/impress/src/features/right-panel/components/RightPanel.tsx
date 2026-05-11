@@ -4,6 +4,7 @@ import { css } from 'styled-components';
 import { Box } from '@/components';
 import { CommentSideBar } from '@/features/docs/doc-editor/components/comments/CommentSideBar';
 import { useDocStore } from '@/features/docs/doc-management';
+import { HEADER_HEIGHT } from '@/features/header';
 
 import { useRightPanelStore } from './useRightPanelStore';
 
@@ -22,6 +23,7 @@ export const RightPanel = () => {
       aria-label={t('Right panel')}
       aria-hidden={!isPanelOpen}
       $width="300px"
+      $minHeight={`calc(100dvh - ${HEADER_HEIGHT}px)`}
       $position="sticky"
       $hasTransition="slow"
       $background="var(--c--contextuals--background--surface--secondary)"

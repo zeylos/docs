@@ -23,7 +23,7 @@ export const FloatingBar = () => {
     const sm = spacingsTokens['sm'];
     return css`
       position: sticky;
-      top: calc(-${base});
+      top: 0;
       left: 0;
       right: 0;
       width: calc(100% + ${base} + ${base});

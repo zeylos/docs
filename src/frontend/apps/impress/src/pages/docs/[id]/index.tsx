@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { createGlobalStyle } from 'styled-components';
 
 import { Box, Loading } from '@/components';
 import { DEFAULT_QUERY_RETRY } from '@/core';
@@ -32,6 +33,12 @@ const DocEditor = dynamic(
     loading: () => <DocEditorSkeleton />,
   },
 );
+
+const DocLayoutGlobalStyle = createGlobalStyle`
+  #${MAIN_LAYOUT_ID} {
+    padding: 0;
+  }
+`;
 
 export function DocLayout() {
   const {
@@ -63,8 +70,9 @@ export function DocLayout() {
         }}
       >
         <MainLayout enableResizablePanel={true}>
+          <DocLayoutGlobalStyle />
           <Box $direction="row" $width="100%">
-            <Box $width="100%" $margin={{ horizontal: 'auto' }}>
+            <Box $width="100%" $margin={{ horizontal: 'auto' }} $padding="base">
               <FloatingBar />
               <DocPage id={id} />
             </Box>
