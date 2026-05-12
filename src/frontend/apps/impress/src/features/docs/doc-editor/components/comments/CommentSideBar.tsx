@@ -1,8 +1,10 @@
 import { CommentsExtension } from '@blocknote/core/comments';
 import { BlockNoteView } from '@blocknote/mantine';
 import { ThreadsSidebar, useCreateBlockNote } from '@blocknote/react';
+import { HocuspocusProvider } from '@hocuspocus/provider';
 import { useTranslation } from 'react-i18next';
 import { css } from 'styled-components';
+import { Awareness } from 'y-protocols/awareness.js';
 
 import { Box, ButtonCloseModal, Text } from '@/components/';
 import { Doc } from '@/docs/doc-management';
@@ -13,9 +15,14 @@ import { useComments } from './useComments';
 interface CommentSideBarProps {
   doc: Doc;
   onClose: () => void;
+  provider: HocuspocusProvider;
 }
 
-export const CommentSideBar = ({ doc, onClose }: CommentSideBarProps) => {
+export const CommentSideBar = ({
+  doc,
+  onClose,
+  provider,
+}: CommentSideBarProps) => {
   const { user } = useAuth();
   const canSeeComment = doc.abilities.comment;
   const { t } = useTranslation();
@@ -28,9 +35,17 @@ export const CommentSideBar = ({ doc, onClose }: CommentSideBarProps) => {
 
   const editor = useCreateBlockNote(
     {
+      collaboration: {
+        fragment: provider.document.getXmlFragment('document-store'),
+        user: {
+          name: '',
+          color: '',
+        },
+        provider: provider as { awareness?: Awareness | undefined },
+      },
       extensions: [CommentsExtension({ threadStore, resolveUsers })],
     },
-    [threadStore, resolveUsers],
+    [threadStore, resolveUsers, provider],
   );
 
   return (
@@ -52,14 +67,14 @@ export const CommentSideBar = ({ doc, onClose }: CommentSideBarProps) => {
       </Box>
 
       <BlockNoteView
-        className="--docs--main-editor"
+        //className="--docs--main-editor"
         aria-label={t('Document editor')}
         editor={editor}
         formattingToolbar={false}
         slashMenu={false}
         theme="light"
         comments={false}
-        renderEditor={false}
+        //renderEditor={false}
       >
         <ThreadsSidebar filter="all" sort="recent-activity" />
       </BlockNoteView>
