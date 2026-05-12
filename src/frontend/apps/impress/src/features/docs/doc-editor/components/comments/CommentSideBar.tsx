@@ -10,6 +10,16 @@ interface CommentSideBarProps {
   onClose: () => void;
 }
 
+const ORPHANED_THREAD_TEXT = 'Original content deleted';
+
+const markOrphanedThreads = (container: HTMLElement) => {
+  container.querySelectorAll<HTMLElement>('.bn-thread').forEach((thread) => {
+    const headerText = thread.querySelector('.bn-header-text');
+    const isOrphaned = headerText?.textContent === ORPHANED_THREAD_TEXT;
+    thread.classList.toggle('bn-thread--orphaned', isOrphaned);
+  });
+};
+
 export const CommentSideBar = ({ onClose }: CommentSideBarProps) => {
   const { t } = useTranslation();
   const { setThreadsSidebarTarget } = useCommentSidebarStore();
@@ -23,6 +33,32 @@ export const CommentSideBar = ({ onClose }: CommentSideBarProps) => {
       setThreadsSidebarTarget(null);
     };
   }, [setThreadsSidebarTarget]);
+
+  /**
+   * Blocknote does not provide a way to distinguish
+   * orphaned threads (i.e. threads whose associated content has been deleted)
+   * from regular threads.
+   * We use a MutationObserver to check for threads whose header text matches the
+   * ORPHANED_THREAD_TEXT and add a specific class to them, which allows us to style them differently.
+   * This is a bit of a hack, but it works until Blocknote provides a better way to handle this.
+   * A issue has been opened in the Blocknote repo to request a better handling of orphaned threads:
+   * https://github.com/TypeCellOS/BlockNote/issues/2735
+   * When this issue is resolved, we can remove this code and adapt the styles.
+   */
+  useEffect(() => {
+    const container = portalRef.current;
+    if (!container) {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      markOrphanedThreads(container);
+    });
+
+    observer.observe(container, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <Box>

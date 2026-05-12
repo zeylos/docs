@@ -296,6 +296,17 @@ export const DocsCommentsStyle = createGlobalStyle<{
           background: var(--c--contextuals--background--semantic--neutral--tertiary);
         }
 
+        & .bn-header-text {
+          display: none;
+        }
+
+        &.bn-thread--orphaned {
+          & .bn-header-text {
+            display: block;
+            padding-inline: var(--c--globals--spacings--xs);
+          }
+        }
+
         .bn-thread-comment {
           padding: var(--c--globals--spacings--xs);
 
