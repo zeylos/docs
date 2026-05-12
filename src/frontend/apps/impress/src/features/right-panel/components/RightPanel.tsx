@@ -31,6 +31,7 @@ export const RightPanel = () => {
       $hasTransition="slow"
       $background="var(--c--contextuals--background--surface--secondary)"
       $css={css`
+        flex-shrink: 0;
         border-left: 1px solid var(--c--contextuals--border--surface--primary);
         transform: translateX(0%);
         margin-left: 1rem;

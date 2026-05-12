@@ -298,7 +298,7 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
         <BlockNoteToolbar aiAllowed={aiBlockNoteAllowed} />
         {threadsSidebarTarget &&
           createPortal(
-            <ThreadsSidebar filter="all" sort="recent-activity" />,
+            <ThreadsSidebar filter="open" sort="recent-activity" />,
             threadsSidebarTarget,
           )}
       </BlockNoteView>

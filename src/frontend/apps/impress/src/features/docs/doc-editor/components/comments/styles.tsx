@@ -274,13 +274,19 @@ export const DocsCommentsStyle = createGlobalStyle<{
 
   .--docs--comments-sidebar.bn-root,
   .--docs--comments-sidebar.bn-root .ProseMirror {
+    .bn-threads-sidebar {
+      gap: 0;
+
       .bn-thread {
         margin: 0;
         max-width: 100%;
         width: 100%;
         min-width: 0;
         padding: var(--c--globals--spacings--xxs) var(--c--globals--spacings--xxxs);
-      
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid var(--c--contextuals--border--surface--primary);
+
         &.selected {
           border: none;
           background: var(--c--contextuals--background--semantic--neutral--tertiary);
@@ -308,5 +314,6 @@ export const DocsCommentsStyle = createGlobalStyle<{
           }
         }
       }
+    }
   }
 `;
