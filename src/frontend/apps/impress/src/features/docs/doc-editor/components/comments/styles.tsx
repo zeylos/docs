@@ -277,6 +277,10 @@ export const DocsCommentsStyle = createGlobalStyle<{
     .bn-threads-sidebar {
       gap: 0;
 
+      .bn-thread-expand-prompt p {
+        font-size: 12px;
+      }
+
       .bn-thread {
         margin: 0;
         max-width: 100%;
