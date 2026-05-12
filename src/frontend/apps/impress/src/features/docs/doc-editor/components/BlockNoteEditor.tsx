@@ -11,7 +11,11 @@ import '@blocknote/core/fonts/inter.css';
 import * as localesBN from '@blocknote/core/locales';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
-import { ThreadsSidebar, useCreateBlockNote } from '@blocknote/react';
+import {
+  FloatingThreadController,
+  ThreadsSidebar,
+  useCreateBlockNote,
+} from '@blocknote/react';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
@@ -288,7 +292,7 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
         formattingToolbar={false}
         slashMenu={false}
         theme="light"
-        comments={showComments}
+        comments={false}
         aria-label={t('Document editor')}
       >
         {aiBlockNoteAllowed && AIMenuController && AIMenu && (
@@ -296,6 +300,23 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
         )}
         <BlockNoteSuggestionMenu aiAllowed={aiBlockNoteAllowed} />
         <BlockNoteToolbar aiAllowed={aiBlockNoteAllowed} />
+        {showComments && (
+          <FloatingThreadController
+            floatingUIOptions={{
+              useDismissProps: {
+                /**
+                 * When the sidebar is open, prevent the floating thread popup
+                 * from being dismissed when clicking inside the sidebar.
+                 * Without this, useDismiss fires selectThread(undefined) on any
+                 * click outside the popup — including clicks on the reply input
+                 * in the sidebar — which causes the thread to be deselected.
+                 */
+                outsidePress: (event) =>
+                  !threadsSidebarTarget?.contains(event.target as Node),
+              },
+            }}
+          />
+        )}
         {threadsSidebarTarget &&
           createPortal(
             <ThreadsSidebar filter="open" sort="recent-activity" />,
