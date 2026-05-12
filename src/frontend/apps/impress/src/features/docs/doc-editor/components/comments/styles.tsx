@@ -294,6 +294,22 @@ export const DocsCommentsStyle = createGlobalStyle<{
         &.selected {
           border: none;
           background: var(--c--contextuals--background--semantic--neutral--tertiary);
+
+          /**
+          * If we want to display the input on the top of the thread, 
+          * we need to change the order of the elements in the thread.
+          */
+          /* .bn-thread-comments {
+            order: 2;
+          } */
+
+          .bn-thread-composer {
+            //order: 1;
+            .bn-block-content:has(.ProseMirror-trailingBreak:only-child):after {
+                color: var(--c--contextuals--content--semantic--neutral--tertiary);
+                font-style: normal;
+            }
+          }
         }
 
         &:hover {
