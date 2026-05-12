@@ -11,9 +11,10 @@ import '@blocknote/core/fonts/inter.css';
 import * as localesBN from '@blocknote/core/locales';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
-import { useCreateBlockNote } from '@blocknote/react';
+import { ThreadsSidebar, useCreateBlockNote } from '@blocknote/react';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { useEffect, useMemo, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import type { Awareness } from 'y-protocols/awareness';
 import * as Y from 'yjs';
@@ -41,7 +42,11 @@ import { randomColor, sanitizeColor } from '../utils';
 import BlockNoteAI from './AI';
 import { BlockNoteSuggestionMenu } from './BlockNoteSuggestionMenu';
 import { BlockNoteToolbar } from './BlockNoteToolBar/BlockNoteToolbar';
-import { DocsCommentsStyle, useComments } from './comments/';
+import {
+  DocsCommentsStyle,
+  useCommentSidebarStore,
+  useComments,
+} from './comments/';
 import {
   AccessibleImageBlock,
   CalloutBlock,
@@ -129,6 +134,8 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
     canSeeComment,
     user,
   );
+
+  const { threadsSidebarTarget } = useCommentSidebarStore();
 
   const currentUserAvatarUrl = useMemo(() => {
     if (canSeeComment) {
@@ -289,6 +296,11 @@ export const BlockNoteEditor = ({ doc, provider }: BlockNoteEditorProps) => {
         )}
         <BlockNoteSuggestionMenu aiAllowed={aiBlockNoteAllowed} />
         <BlockNoteToolbar aiAllowed={aiBlockNoteAllowed} />
+        {threadsSidebarTarget &&
+          createPortal(
+            <ThreadsSidebar filter="all" sort="recent-activity" />,
+            threadsSidebarTarget,
+          )}
       </BlockNoteView>
     </Box>
   );

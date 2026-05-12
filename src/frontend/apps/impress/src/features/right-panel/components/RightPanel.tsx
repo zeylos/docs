@@ -46,11 +46,7 @@ export const RightPanel = () => {
         `}
       `}
     >
-      <CommentSideBar
-        doc={doc}
-        onClose={() => setIsPanelOpen(false)}
-        provider={provider}
-      />
+      <CommentSideBar onClose={() => setIsPanelOpen(false)} />
     </Box>
   );
 };

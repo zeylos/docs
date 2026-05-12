@@ -71,9 +71,6 @@ export function DocLayout() {
       >
         <MainLayout enableResizablePanel={true}>
           <DocLayoutGlobalStyle />
-          {/* BlockNoteView should wrap ⬇ from here
-            See https://github.com/TypeCellOS/BlockNote/blob/main/examples/07-collaboration/06-comments-with-sidebar/src/App.tsx
-          */}
           <Box $direction="row" $width="100%">
             <Box $width="100%" $margin={{ horizontal: 'auto' }} $padding="base">
               <FloatingBar />

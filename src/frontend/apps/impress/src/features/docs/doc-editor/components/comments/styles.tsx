@@ -85,6 +85,12 @@ export const DocsCommentsStyle = createGlobalStyle<{
         padding: 8px;
         flex-wrap: nowrap;
         gap: 0px;
+        flex-direction: column;
+        align-items: initial;
+
+        & > div:first-child {
+          flex-direction: row;
+        }
 
         & .bn-editor {
           padding-left: var(--c--globals--spacings--lg);
