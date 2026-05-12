@@ -36,14 +36,14 @@ export const CommentSideBar = ({ onClose }: CommentSideBarProps) => {
         <Box $direction="row" $align="center" $justify="space-between">
           <Text $weight="bold">{t('Comments')}</Text>
           <ButtonCloseModal
-            aria-label={t('Close the share modal')}
+            aria-label={t('Close the comments sidebar')}
             onClick={onClose}
           />
         </Box>
       </Box>
       <div
         ref={portalRef}
-        className="--docs--main-editor bn-root bn-mantine"
+        className="--docs--comments-sidebar bn-root bn-mantine"
         data-mantine-color-scheme="light"
       />
     </Box>

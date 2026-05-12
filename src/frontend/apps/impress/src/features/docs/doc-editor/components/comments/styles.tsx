@@ -5,7 +5,9 @@ export const DocsCommentsStyle = createGlobalStyle<{
   currentUserAvatarUrl?: string;
 }>`
   .--docs--main-editor.bn-root,
-  .--docs--main-editor.bn-root .ProseMirror {
+  .--docs--main-editor.bn-root .ProseMirror,
+  .--docs--comments-sidebar.bn-root,
+  .--docs--comments-sidebar.bn-root .ProseMirror {
     // Comments marks in the editor
     .bn-editor {
       // Resets blocknote comments styles
@@ -106,7 +108,7 @@ export const DocsCommentsStyle = createGlobalStyle<{
             padding: var(--c--globals--spacings--0)
               var(--c--globals--spacings--st);
             background: none;
-            border: 1px solid var(--c--globals--colors--gray-300);
+            border: 1px solid var(--c--contextuals--border--semantic--neutral--tertiary);
             border-radius: var(--c--globals--spacings--st);
             height: var(--c--globals--spacings--md);
           }
@@ -137,6 +139,8 @@ export const DocsCommentsStyle = createGlobalStyle<{
 
           // Date
           span.mantine-focus-auto {
+            font-weight: 400;
+            margin-left: var(--c--globals--spacings--2xs) !important;
           }
 
           .bn-comment-actions {
@@ -174,7 +178,7 @@ export const DocsCommentsStyle = createGlobalStyle<{
               height: var(--c--globals--spacings--md);
               padding-inline: var(--c--globals--spacings--st);
 
-              &[data-test='save'] {
+              &:first-child {
                 border: 1px solid
                   var(--c--contextuals--background--semantic--brand--primary);
                 background: var(
@@ -185,7 +189,7 @@ export const DocsCommentsStyle = createGlobalStyle<{
                 );
               }
 
-              &[data-test='cancel'] {
+              &:last-child {
                 background: white;
                 border: 1px solid
                   var(--c--contextuals--border--surface--primary);
@@ -266,5 +270,43 @@ export const DocsCommentsStyle = createGlobalStyle<{
         }
       }
     }
+  }
+
+  .--docs--comments-sidebar.bn-root,
+  .--docs--comments-sidebar.bn-root .ProseMirror {
+      .bn-thread {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        min-width: 0;
+        padding: var(--c--globals--spacings--xxs) var(--c--globals--spacings--xxxs);
+      
+        &.selected {
+          border: none;
+          background: var(--c--contextuals--background--semantic--neutral--tertiary);
+        }
+
+        &:hover {
+          background: var(--c--contextuals--background--semantic--neutral--tertiary);
+        }
+
+        .bn-thread-comment {
+          padding: var(--c--globals--spacings--xs);
+
+          &:has(.bn-comment-actions) {
+            & > .mantine-Group-root:first-child {
+              background: linear-gradient(
+                to left,
+                var(--c--contextuals--background--semantic--neutral--tertiary) 90%,
+                rgba(255, 255, 255, 0) 100%
+              );
+            }
+
+            .bn-menu-dropdown {
+              box-shadow: 0px 0px 6px 0px #0000911a;
+            }
+          }
+        }
+      }
   }
 `;
