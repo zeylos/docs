@@ -11,6 +11,8 @@ and this project adheres to
 - ✨(backend) support creating subdoc from file #1987
 - ✨(buildpack) add PaaS deployment support, tested with Scalingo #2293
 - 🔧(backend) allow configuring settings OIDC_OP_USER_ENDPOINT_FORMAT
+- ✨(y-provider) preserve callouts, PDFs, page breaks and interlinking
+  links on HTML/markdown export
 
 ### Fixed
 
